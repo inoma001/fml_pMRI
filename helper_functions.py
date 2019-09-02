@@ -78,7 +78,7 @@ def process_cmdln(args,code_ver):
     d_phys['Hb']=0.15
     d_phys['PaO20']=120
     d_phys['dPaO2']=220
-    d_phys['k']=3
+#    d_phys['k']=3
     
     d_scan_par={}
     d_scan_par['PLD']=1.5

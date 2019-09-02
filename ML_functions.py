@@ -99,7 +99,7 @@ def calc_cmro2(images_dict,d_phys,d_scan_par,d_analysis):
     PLD_vect=np.linspace(d_scan_par['PLD'],d_scan_par['PLD']+no_slices*d_scan_par['slice_delay'], num=no_slices)
     PLD_mat=np.tile(PLD_vect, (x_axis,y_axis,1))
 
-#    array_elements=40;
+
     array_elements=15;
     ASL_ML_array=np.empty([x_axis,y_axis,no_slices,5+4*array_elements])
     ASL_ML_array[:,:,:,0]=d_phys['Hb']
@@ -149,8 +149,10 @@ def calc_cmro2(images_dict,d_phys,d_scan_par,d_analysis):
 
 #    ensemble fitting
     import os
-    file_list=(os.listdir('/home/mike/Host/pMRI_ML/dcfmri_7mm_sk_learn/CBF_OEF_ensemble_sav/'))
-    
+    scriptDirectory = os.path.dirname(os.path.abspath(__file__))
+    ensembleDirectory = os.path.join(scriptDirectory, 'CBF_OEF_ensemble_sav/')	
+    file_list = os.listdir(ensembleDirectory)
+   
     CMRO2_array=np.zeros([x_axis,y_axis,no_slices,int(len(file_list)/2)])
     OEF_array=np.zeros([x_axis,y_axis,no_slices,int(len(file_list)/2)])
     
@@ -160,8 +162,7 @@ def calc_cmro2(images_dict,d_phys,d_scan_par,d_analysis):
         if current_file[-9:-4]=='model':
             filename='CBF_OEF_ensemble_sav/' + current_file
             
-            print(filename)
-            
+            print(filename)         
             net=pickle.load(open(filename, 'rb'))
             filename='CBF_OEF_ensemble_sav/' + current_file[0:-9] + 'scaler.sav'
             scaler=pickle.load(open(filename, 'rb')) 
